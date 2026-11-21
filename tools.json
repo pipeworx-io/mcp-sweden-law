@@ -1,0 +1,54 @@
+[
+  {
+    "name": "se_law_search",
+    "description": "Search Swedish national legislation (Svensk forfattningssamling, SFS: laws, ordinances and balkar) by word, in Swedish, e.g. \"dataskydd\" or \"arbetsmiljo\". Matches the whole text of each statute, ranked by relevance, so a word in the title ranks first. By default only statutes not marked repealed; set include_repealed=true to see repealed ones. Optional year_from / year_to narrow by year of issue. Returns up to 10 matches with id (\"2018:218\" = year:number, the SFS number), title, issue date, issuing ministry, repealed flag, how far it is amended and link. Pair with se_law_get for the text.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Swedish word(s), e.g. \"dataskydd\"; a word from the title ranks best"
+        },
+        "include_repealed": {
+          "type": "boolean",
+          "description": "Also return statutes marked repealed (default false)"
+        },
+        "year_from": {
+          "type": "number",
+          "description": "Earliest year of issue, e.g. 2000"
+        },
+        "year_to": {
+          "type": "number",
+          "description": "Latest year of issue, e.g. 2020"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "se_law_get",
+    "description": "Fetch one Swedish statute by its SFS number \"year:number\", e.g. \"2018:218\" (the Act with supplementary provisions to the EU Data Protection Regulation); \"SFS 2018:218\" is accepted too. Returns title, SFS citation, issue date, ministry, whether the Riksdag marks it repealed (with repeal date and the repealing act) and how far it is amended, then the text in Swedish. Pass section (e.g. \"5\", \"3 a\", or \"2:1\" for chapter 2 section 1, since chapters restart section numbers) for one section only; without it the text is capped at max_chars with a chapter list. A section with scheduled changes returns each version with the Riksdag's own marker line.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "SFS number as \"year:number\", e.g. \"2018:218\""
+        },
+        "section": {
+          "type": "string",
+          "description": "Section number, e.g. \"5\" or \"3 a\"; with chapters use chapter:section, e.g. \"2:1\""
+        },
+        "max_chars": {
+          "type": "number",
+          "description": "Cap on returned text when no section is given (default 20000, max 100000)"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  }
+]

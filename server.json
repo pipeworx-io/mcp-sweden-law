@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.pipeworx-io/sweden-law",
+  "title": "Sweden Law",
+  "description": "Sweden law -- Svensk forfattningssamling (SFS, the Swedish Code of Statutes), as published by the…",
+  "version": "0.1.0",
+  "websiteUrl": "https://pipeworx.io/packs/sweden-law",
+  "repository": {
+    "url": "https://github.com/pipeworx-io/mcp-sweden-law",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://gateway.pipeworx.io/sweden-law/mcp"
+    }
+  ]
+}
